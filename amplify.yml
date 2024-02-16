@@ -1,0 +1,13 @@
+version: 1
+frontend:
+  phases:
+    preBuild:
+      commands:
+        - npm install
+    build:
+      commands:
+        - echo "No build step required"
+  artifacts:
+    baseDirectory: /public # Update this to the directory where your static files are located
+    files:
+      - '**/*'

@@ -1,0 +1,126 @@
+body {
+    font-family: "Arial", sans-serif;
+    background: linear-gradient(to bottom, #9bb235, #557f3f),
+      url("../images/background.jpg"); /* Gradient overlay on top of your background image */
+    background-size: cover; /* Ensure both the gradient and image cover the entire page */
+    background-position: center; /* Center the background image and gradient */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; /* Full viewport height */
+    margin: 0;
+    padding: 20px;
+  }
+  
+  .header {
+    position: fixed;
+    top: 0;
+    left: 15; /* Align the header to the left */
+    width: 100%;
+    background-color: #f9fbef; /* Semi-transparent white */
+    text-align: center; /* Center the text */
+    padding: 10px 20px; /* Added left and right padding */
+    font-size: 24px;
+    display: flex; /* Use flexbox for layout */
+    justify-content: center; /* Center items horizontally */
+    align-items: center; /* Center items vertically */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add a subtle shadow for depth */
+  }
+  
+  .header img {
+    width: 50px; /* Adjust logo size */
+    height: auto;
+    margin-right: 15px; /* Space between logo and title */
+  }
+  
+  .container {
+    width: 100%;
+    max-width: 400px;
+    background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent white */
+    padding: 2em;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* More pronounced shadow for contrast */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    backdrop-filter: blur(5px); /* Soften the background behind the container */
+  }
+  
+  h1 {
+    color: #333;
+    margin-bottom: 1.5em;
+  }
+  
+  .form-group {
+    width: 100%;
+    margin-bottom: 0.25em;
+    display: flex; /* Use flex to align children */
+    flex-direction: column; /* Stack children vertically */
+    align-items: center; /* Center children horizontally */
+  }
+  
+  label {
+    font-size: 1em;
+    color: #333;
+    margin-bottom: 0.5em;
+    display: block;
+    text-align: center; /* Add this to center align the text within the label */
+    width: 100%; /* Ensure the label takes up the full width */
+  }
+  
+  input[type="text"] {
+    width: 120%;
+    padding: 12px;
+    margin-bottom: 1em;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  button {
+    width: 100%;
+    padding: 12px;
+    background-color: #206836;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    display: block;
+  }
+  
+  button:hover {
+    background-color: #557f3f;
+  }
+  
+  #message {
+    color: green;
+    min-height: 4em;
+    text-align: center;
+    max-height: 10em;
+    margin-top: 2em;
+    width: 100%;
+    max-width: 400px;
+    white-space: pre-line;
+  }
+  
+  .logo {
+    width: 100px;
+    height: auto;
+    margin-bottom: 20px;
+  }
+  
+  .message-error {
+    color: blue;
+  }
+  
+  .message-success {
+    color: green;
+  }
+  
+  .message-not-registered {
+    color: red;
+  }
+  
+  .message-info {
+    color: black;
+  }
