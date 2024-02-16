@@ -15,6 +15,11 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'attendance.html'));
 });
 
+
+app.get('/dashboard', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'dashboard.html'));
+});
+
 const attendanceRoutes = require('./routes/attendanceRoutes');
 app.use('/api/attendance', attendanceRoutes);
 
