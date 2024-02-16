@@ -1,59 +1,50 @@
 document.addEventListener("DOMContentLoaded", function () {
-  document
-    .getElementById("checkInForm")
-    .addEventListener("submit", function (e) {
-      e.preventDefault();
-      const studentId = document.getElementById("studentId").value;
-      const data = { studentId: studentId };
+  document.getElementById("checkInForm").addEventListener("submit", function (e) {
+    e.preventDefault();
+    const student_number = document.getElementById("student_number").value;
+    const data = { student_number: student_number };
 
-      fetch("/api/attendance/mark-attendance", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
+    fetch("/api/attendance/mark-attendance", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        } else {
+          return response.json();
+        }
       })
-        .then((response) => {
-          if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-          } else {
-            return response.json();
-          }
-        })
-        .then((data) => {
-          let messageElement = document.getElementById("message");
-          messageElement.innerHTML = ""; // Clear previous messages
+      .then((data) => {
+        let messageElement = document.getElementById("message");
+        let statusBox = document.getElementById("statusBox");
+        messageElement.innerHTML = ""; // Clear previous messages
 
-          // Create a new span element to hold the message
-          let span = document.createElement("span");
+        // Set the message text
+        messageElement.textContent = data.message;
 
-          // Check the type of the message and add the corresponding class
-          if (data.type === "error") {
-            span.classList.add("message-error");
-          } else if (data.type === "success") {
-            span.classList.add("message-success");
-          } else if (data.type === "not-registered") {
-            // If it's a not-registered type, you might want to split the message for different styles
-            let parts = data.message.split("\n");
-            span.innerHTML = `<span class="message-error">${parts[0]}</span><br><span class="message-info">${parts[1]}</span>`;
-          } else {
-            // If there's no type or it's any other type, use a default class
-            span.classList.add("message-info");
-          }
-
-          // If the message doesn't need to be split, set the textContent of span
-          if (span.innerHTML === "") {
-            span.textContent = data.message;
-          }
-
-          // Append the span to the messageElement
-          messageElement.appendChild(span);
-        })
-
-        .catch((error) => {
-          console.error("Fetch error:", error);
-          document.getElementById("message").textContent =
-            "An error occurred. Please try again.";
-        });
-    });
+        // Set the status box color and text based on the 'status' field
+        switch (data.status) {
+          case "Attended":
+            statusBox.className = "status-box message-success";
+            statusBox.textContent = "Attended";
+            break;
+          case "Not Attended":
+            statusBox.className = "status-box message-info";
+            statusBox.textContent = "Not Attended";
+            break;
+          case "Not in the Database":
+            statusBox.className = "status-box message-error";
+            statusBox.textContent = "Not in the Database";
+            break;
+        }
+      })
+      .catch((error) => {
+        console.error("Fetch error:", error);
+        document.getElementById("message").textContent = "An error occurred. Please try again.";
+      });
+  });
 });

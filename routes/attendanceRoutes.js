@@ -3,44 +3,44 @@ const router = express.Router();
 const Student = require("../models/Student");
 
 router.post("/mark-attendance", async (req, res) => {
-  let { studentId } = req.body;
-  studentId = studentId.charAt(0).toLowerCase() + studentId.slice(1);
-  const regex = /^[sg]20\d{6}0$/;
+    const { student_number } = req.body;
+    const regex = /^05\d{8}$/;
 
-  if (!regex.test(studentId)) {
-    return res.json({
-      type: "error",
-      message:
-        "Wrong ID, make sure to add 's' or 'g' followed by your 9 digit ID.",
-    });
-  }
-  try {
-    const student = await Student.findOne({ studentId: studentId });
-    if (student) {
-      if (!student.presence) {
-        student.presence = true;
-        await student.save();
-        res.status(200).json({
-          //  Green
-          type: "success",
-          message: `Your attendance has been taken successfully \n${student.name} \n${student.program}`,
+    if (!regex.test(student_number)) {
+        return res.json({
+            type: "error",
+            message: "Invalid ID, make sure it starts with 05 followed by 8 digits.",
         });
-      } else {
-        res.status(200).json({
-          type: "success",
-          message: `Your attendance was already taken \n${student.name} \n${student.program}`,
-        });
-      }
-    } else {
-      // Red
-      res.json({
-        type: "not-registered",
-        message: "Your Not Registered! \nHead to the late registration office",
-      });
     }
-  } catch (error) {
-    res.json({ message: "Error marking attendance", error: error.message });
-  }
+
+    try {
+        const student = await Student.findOne({ student_number: student_number });
+        if (student) {
+            if (student.status !== 'Attended') {
+                student.status = 'Attended';
+                await student.save();
+                res.status(200).json({
+                    type: "success",
+                    message: "Your attendance has been marked as Attended.",
+                    status: student.status,
+                });
+            } else {
+                res.status(200).json({
+                    type: "info",
+                    message: "You have already been marked as Attended.",
+                    status: student.status,
+                });
+            }
+        } else {
+            res.json({
+                type: "not-registered",
+                message: "You are not in the database.",
+                status: "Not in the Database",
+            });
+        }
+    } catch (error) {
+        res.json({ message: "Error marking attendance", error: error.message });
+    }
 });
 
 module.exports = router;

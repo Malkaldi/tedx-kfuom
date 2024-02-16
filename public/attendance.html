@@ -1,29 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Attendance</title>
     <link rel="stylesheet" href="./css/attendance.css" />
-  </head>
-  <body>
+</head>
+<body>
     <div class="header">
-      <img src="./images/volunteering uni.jpg" alt="Volunteering Unit Logo" />
-      <!-- Logo in the header -->
-      Volunteering Unit
-      <!-- Title next to the logo -->
+        <img src="./images/volunteering uni.jpg" alt="Volunteering Unit Logo" />
+        Volunteering Unit
     </div>
     <div class="container">
-      <h1>Student Check-In</h1>
-      <form id="checkInForm">
-        <div class="form-group">
-          <label for="studentId">Enter your Student ID</label>
-          <input type="text" id="studentId" name="studentId" required />
-        </div>
-        <button type="submit">Check In</button>
-      </form>
-      <div id="message"></div>
+        <h1>Student Check-In</h1>
+        <form id="checkInForm">
+            <div class="form-group">
+                <label for="student_number">Enter your Student ID</label>
+                <input type="text" id="student_number" name="student_number" required />
+            </div>
+            <button type="submit">Check In</button>
+        </form>
+        <div id="message"></div>
+        <div id="statusBox" class="status-box"></div>
     </div>
     <script src="./js/attendance.js"></script>
-  </body>
+</body>
 </html>
